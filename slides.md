@@ -1,4 +1,4 @@
-# Decoding Directorial Style: Using Pose and Action Estimation to Analyze Theater Performances
+# The Director’s Signature: Stylometry of Theater Choreography via Pose and Action Estimation
 
 <!-- .slide: data-background-video="assets/vis_fondly_phalp_coco.mp4" -->
 <!-- .slide: data-background-size="contain" -->
@@ -32,6 +32,9 @@
 </div>
 
 :::
+
+NOTE: Vijoy is unlikely to attend DH2025; probably start with Michael R?
+
 Welcome everyone, and thank you for joining us today. My name is Vijoy Abraham and I am the Head of the **Center for Interdisciplinary Digital Research**, which is part of the **Research Data Services** unit at the Stanford Libraries. I’ll be introducing our topic, the project team, and give a quick overview of our presentation today.
 
 <<Opening slide to Introductions slide>>
@@ -168,7 +171,7 @@ I’m now going to turn things over to Peter to talk a little bit about our meth
 ---
 
 
-## A Breakthrough: Temporal-Convolutional vs. Transformer Models
+## Temporal-Convolutional vs. Transformer Models
 
 <div class="img-row">
 
@@ -185,6 +188,8 @@ These convolutional approaches improved during the following 5 years, and they w
 
 So when we began this project, we were basically hoping that better models would come along to give us better data. And as sometimes happens during the current era of AI research, we actually able to pull off the equivalent of jumping out of a plane and having someone toss a better parachute to us. This parachute came in the form a of a new generation of transformer-based models for computer vision, and more specifically via some great software tools for pose estimation and tracking from a research group across the Bay at UC Berkeley.
 
+
+<!--
 ---
 
 
@@ -201,7 +206,7 @@ So when we began this project, we were basically hoping that better models would
 :::
 Which we learned about when attending the 2022 HAI Spring Conference! That's Angjoo Kanazawa, the senior faculty member overseeing most of the projects I'll summarize in the next few slides, along with Jitendra Malik at UC Berkeley.
 
-
+-->
 ---
 
 
@@ -214,6 +219,7 @@ Jathushan Rajasegaran, Georgios Pavlakos, Angjoo Kanazawa, Jitendra Malik. “Tr
 :::
 The most crucial of these tools is charmingly named PHALP -- you can see the acronym there -- and it achieves what is still basically state-of-the-art accuracy in pose estimation by interweaving the tasks of estimating human forms while also noting their appearance (that is, by extracting texture maps of their clothing and such) and tracking their trajectories over time in an estimated 3D space.
 
+<!--
 ---
 
 
@@ -244,7 +250,7 @@ Shubham Goel, Georgios Pavlakos, Jathushan Rajasegaran, Angjoo Kanazawa, Jitendr
 :::
 Here are some further illustrations of how the PHALP tool combines not just vision transformers but also a separate temporally aware transformer to track poses over time, while modeling the positions of pose joints and surfaces, as well as the camera in the 3D environment.
 
-
+-->
 ---
 
 
@@ -361,6 +367,9 @@ This is a diagram of the platform, more-or-less as it exists now
 <video id="platform-demo-video" controls muted src="assets/mime-hai-seminar-demo-video.mp4"></video>
 
 :::
+
+# NOTE: Probably the demo should be shorter, and focus on the aspects related to pose comparison
+# and bulk analysis for stylometry. Maybe spend more time showing the mk2 interface?
 
 * Performances
   * On the initial screen we can see  the table of recordings that have been ingested into the platform
@@ -608,6 +617,11 @@ This projection does seem to reveal useful insights, like the overall greater si
 </div>
 
 :::
+
+# NOTE: Not sure whether to include this section...
+# If we have more results involving hand analysis and archetype "fingerprints" 
+# (Delsart or otherwise), we probably should show those instead
+
 Our final analytical experiment to date, which is still a work in progress, sort of inverts the previous approach and instead considers what MIME can reveal when comparing staging from seven different directors who are all directing the same work -- in this case the famous Mozart/Da Ponte opera Don Giovanni from 1787.
 
 The screenshots below (which you may recall from the beginning of the seminar) show some pose estimation output from the directors -- note that in every case this is the same scene, from the finale of Act I.
