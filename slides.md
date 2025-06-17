@@ -189,24 +189,6 @@ These convolutional approaches improved during the following 5 years, and they w
 So when we began this project, we were basically hoping that better models would come along to give us better data. And as sometimes happens during the current era of AI research, we actually able to pull off the equivalent of jumping out of a plane and having someone toss a better parachute to us. This parachute came in the form a of a new generation of transformer-based models for computer vision, and more specifically via some great software tools for pose estimation and tracking from a research group across the Bay at UC Berkeley.
 
 
-<!--
----
-
-
-## A Breakthrough, Courtesy of the HAI Spring 2022 Conference
-
-<div class="img-row">
-
-![HAI Spring 2022 video grab](assets/methods/HAI_spring_2022_frame.png "HAI Spring 2022") HAI Spring Conference, April 12, 2022<br>“Key Advances in AI”
-
-![HAI Spring 2022 program](assets/methods/HAI_spring_2022_program.png "HAI Spring 2022")
-
-</div>
-
-:::
-Which we learned about when attending the 2022 HAI Spring Conference! That's Angjoo Kanazawa, the senior faculty member overseeing most of the projects I'll summarize in the next few slides, along with Jitendra Malik at UC Berkeley.
-
--->
 ---
 
 
@@ -219,38 +201,7 @@ Jathushan Rajasegaran, Georgios Pavlakos, Angjoo Kanazawa, Jitendra Malik. “Tr
 :::
 The most crucial of these tools is charmingly named PHALP -- you can see the acronym there -- and it achieves what is still basically state-of-the-art accuracy in pose estimation by interweaving the tasks of estimating human forms while also noting their appearance (that is, by extracting texture maps of their clothing and such) and tracking their trajectories over time in an estimated 3D space.
 
-<!--
----
 
-
-## Vision Transformers (ViT): Attention Comes to Pixel Patches
-
-<div class="img-row">
-
-![A vision transformer](assets/methods/vision-transformer.png "Vision transformer diagram") Alexey Dosovitskiy, et al. “An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale.” In Proc. International Conference on Learning Representation 2021.
-
-![Transformer self-attention diagram](assets/methods/transformer_self-attention_visualization.png "Transformer self-attention diagram") Multi-headed self-attention, but with image patches instead of words<br>
-<small>jalammar.github.io/illustrated-transformer/</small>
-
-</div>
-
-:::
-I mentioned that these models derive much of their effectiveness from the Transformer architecture, which emerged in 2017; most of us learned about it via its contributions to language models (and eventually to large language models), and particularly its "multi-headed self-attention" mechanism that encodes complex semantic relationships between words. Vision transformers, which apply the same techniques to images, came along in 2021, and as you can see here, work by breaking up the image into long strings of 16x16-pixel patches that are essentially treated like words, after being passed through many multi-layer perceptrons.
-
-
----
-
-
-## How PHALP Uses Transformers for Detection and Tracking
-
-<img class="r-stretch" src="assets/methods/4D-Humans.png" />
-
-Shubham Goel, Georgios Pavlakos, Jathushan Rajasegaran, Angjoo Kanazawa, Jitendra Malik. “Humans in 4D: Reconstructing and Tracking Humans with Transformers.” arxiv.org/abs/2305.20091 (2023).
-
-:::
-Here are some further illustrations of how the PHALP tool combines not just vision transformers but also a separate temporally aware transformer to track poses over time, while modeling the positions of pose joints and surfaces, as well as the camera in the 3D environment.
-
--->
 ---
 
 
