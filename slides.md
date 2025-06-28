@@ -177,7 +177,7 @@ I’m now going to turn things over to Peter to talk a little bit about our meth
 
 ![OpenPifPaf not doing well](assets/methods/OpenPifPaf_bad.jpg "OpenPifPaf not doing well") <strong>Open PifPaf</strong><br> Temporal-convolutional<br>2D only, limited tracking
 
-![PHALP doing well](assets/methods/PHALP_good.jpg "PHALP doing well") <strong>PHALP</strong><br>Transformers-based<br>3D, more robust to occlusion
+![PHALP doing well](assets/methods/PHALP_WiLoR_good.png "PHALP and WiLoR doing well") <strong>PHALP</strong> (pose) + <strong>WiLoR</strong> (hands)<br>Transformers-based<br>3D, more robust to occlusion
 
 </div>
 
