@@ -33,38 +33,16 @@
 
 :::
 
-NOTE: Vijoy is unlikely to attend DH2025; probably start with Michael R?
-
-Welcome everyone, and thank you for joining us today. My name is Vijoy Abraham and I am the Head of the **Center for Interdisciplinary Digital Research**, which is part of the **Research Data Services** unit at the Stanford Libraries. I’ll be introducing our topic, the project team, and give a quick overview of our presentation today.
-
-<<Opening slide to Introductions slide>>
-
+Welcome everyone, and thank you for joining us today. 
 Our project draws from the field of cultural analytics, whereby computational methods are applied to the study of cultural heritage. We will discuss our exploratory work in bringing Machine Learning techniques to the study of theater performance and, in particular, to the study of directorial style.
 
-The project, titled **Machine Intelligence for Motion Exegesis, or MIME**, is the result of a collaboration between Assistant Professor Michael Rau, and the Developer Team at Research Data Services. That team consists of myself, Peter Broadwell and Simon Wiles.
+The project, titled **Machine Intelligence for Motion Exegesis, or MIME**, is the result of a collaboration between Assistant Professor Michael Rau, and the Developer Team at Research Data Services. That team consists of Vijoy Abraham, Peter Broadwell and Simon Wiles.
 
 **Michael Rau** is Assistant Professor of Theater and Performance Studies as well as an ~affiliate faculty member~ at HAI here at Stanford University. He received an MFA in Directing from Columbia University and has directed works **internationally** including plays, operas, and digital media projects, and has been featured in the New York Times, the Guardian and the Telegraph. He was the recipient of a 2021 **Artists + Machine Intelligence** Research Award from Google.
 
 **Peter Broadwell** is one of two Digital Scholarship Research Developers at RDS, where his work applies machine learning, web-based visualization, and other methods of digital analysis to complex cultural data. He has a Ph.D. in Musicology from UCLA and an M.S. in Computer Science from UC Berkeley.
 
 **Simon Wiles** is the other Digital Scholarship Research Developer on the team. Before coming to Stanford in 2011 to begin a PhD in Buddhist Philology and Philosophy- he worked, studied, and taught in Asia for many years, where he further developed his extensive technical background across several areas of study.
-
-This project is part of a long-running service at the Stanford Libraries where faculty are invited to engage with our team in exploring computational approaches to analyzing and visualizing data, as well as creating affordances for interactive exploration of their research. We have at times referred to these projects as **Lighthouse Projects**- our hope being that our collaborations can help to expose new pathways for scholarly inquiry that would only be possible through such long-term engagements and the associated provisioning of dedicated technical resources.
-<<slide>>
-
-**Our presentation will follow this structure:**
-
-1 Michael: will present the **Project’s problem statement**
-
-2 Peter: will describe some of the exploration of human pose detection, action identification, and facial recognition models that led to the development of the platform
-
-3 Simon: will walk us through that platform, the MIME platform
-
-4 Peter: will return to show us some of the results obtained thus far
-
-5 Michael: will then share Implications for theater and performance studies
-
-With that, I’ll ask Michael to come up now.
 
 
 ---
@@ -118,7 +96,7 @@ Pose and staging lies at the intersection of authorial intent, directorial visio
 
 <!-- .slide: data-transition="slide-in fade-out" -->
 :::
-To answer this question, we turned to computer vision algorithms capable of detecting precise poses of the actors for every single frame of video in an archival production. Our methodology involves running pose detection on numerous archival videos, which would generate hundreds of thousands of poses, and then sift through that pose data in order to draw meaningful conclusions.
+To answer this question, we turned to computer vision algorithms capable of detecting precise poses of the actors for every single frame of video in an archival production. Our methodology involves running pose detection on numerous archival videos, which generates hundreds of thousands of poses, and then sift through that pose data in order to draw meaningful conclusions.
 
 
 ---
@@ -147,19 +125,17 @@ To answer this question, we turned to computer vision algorithms capable of dete
 :::
 In traditional theater studies, the concept of pose is often taken for granted. Directors, performers and audiences intuitively understand the power of a well-crafted tableau or a precisely choreographed sequence of movements.  In the theater, certain iconic poses or choreography can define productions, like Brecht’s silent scream choreography in Mother Courage, or Bob Fosse’s shoulder roll and arm pops in The Pajama Game or the collective poses of the ensemble in "A Chorus Line.” These production’s indelible poses helped make the work memorable, and are a signature of a particular director’s contribution to the production, and serve as a shorthand for identifying a director’s style.
 
-However, these individual, memorable poses are just the tip of the iceberg. Our challenge lies in understanding the aggregate effect of all poses throughout a production, and even more ambitiously, across multiple productions by the same director, or by different interpretations of the same material by different directors. This approach brings us closer  to identifying the director's contribution to pose within the theater.
+However, these individual, memorable poses are just the tip of the iceberg. Our work lies in understanding the aggregate effect of all poses throughout a production, and even more ambitiously, across multiple productions by the same director, or by different interpretations of the same material by different directors. This approach brings us closer  to identifying the director's contribution to pose within the theater.
 
 In film studies, there is a somewhat dated theory, called auteur theory which provides a framework for understanding a director's unique imprint on their work. Film directors have a range of tools at their disposal – camera angles, editing techniques, lighting choices – that make their stylistic signatures more readily apparent. In theater, however, the director's expressive capabilities are more constrained, and their contribution can be more elusive to pin down. In the theater, a director is constrained more by the physical space that they’re staging in, and the fact that their work happens in real-time, by live actors,who mediate the director’s staging.
 
-This is where the computational analysis of pose in theater becomes interesting. By leveraging technologies like pose estimation and action recognition, we can begin to quantify aspects of theatrical performance that were previously left to subjective interpretation. We can analyze not just individual poses, but patterns of movement, spatial relationships between performers, and even the rhythm and flow of a production. Moreover, we can, as Peter will later discuss, use pose analysis to distinguish between the work of different directors, regardless of the actors, performance text, or designer. In this way, we can get closer to understanding the specific contributions that a director provides. This is important because a director’s work is often occluded, rarely mentioned within theater reviews, and most importantly, by several funding agencies considered, not “generative artform, but rather an interpretative artform” and thus not worthy of funding.
+This is where the computational analysis of pose in theater becomes interesting. By leveraging technologies like pose estimation and action recognition, we can begin to quantify aspects of theatrical performance that were previously left to subjective interpretation. We can analyze not just individual poses, but patterns of movement, spatial relationships between performers, and even the rhythm and flow of a production. Moreover, we can, as Peter will later discuss, use pose analysis to distinguish between the work of different directors, regardless of the actors, performance text, or designer. In this way, we can get closer to understanding the specific contributions that a director provides. This is important because a director’s work is often occluded, sometimes not even mentioned within theater reviews, and most importantly, by several funding agencies considered, not “generative artform, but rather an interpretative artform” and thus not worthy of funding.
 
 The question that you might be asking yourself, is “A purely data-driven analysis might pick up on patterns and consistencies in a director's work, but can it capture the nuanced, thematic use of pose that a trained theater scholar might recognize immediately?” This is the delicate balance we must strike. On one hand, we have the potential to uncover patterns and stylistic elements that might not be apparent to the naked eye, especially when analyzing a director's body of work as a whole. On the other hand, we risk reducing the rich, complex art of theater direction to a series of data points.
 
 Our solution lies in a synthesis of approaches. By combining the insights of traditional theater scholarship with the analytical power of computational methods, we can begin to develop a more comprehensive understanding of pose in theater. We can use data to support and enhance our qualitative analyses, and we can use our human understanding of theatrical context to guide our interpretation of the data.
 
-Ultimately, the problem of pose in theater is not just about understanding physical arrangements on stage. It's about decoding the language of movement that directors use to communicate their artistic vision. It's about recognizing patterns across productions that might reveal deeper truths about a director's style or preoccupations. And perhaps most excitingly, it's about opening up new avenues for creativity and analysis in the world of theater.
 
-I’m now going to turn things over to Peter to talk a little bit about our methodology for selecting pose models and our approach to analyzing theatrical productions.
 
 
 ---
