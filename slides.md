@@ -34,17 +34,9 @@
 :::
 
 Welcome everyone, and thank you for joining us today. 
-Our project draws from the field of cultural analytics, whereby computational methods are applied to the study of cultural heritage. We will discuss our exploratory work in bringing Machine Learning techniques to the study of theater performance and, in particular, to the study of directorial style.
+We will discuss our exploratory work in bringing Machine Learning techniques to the study of theater performance and, in particular, to the study of directorial style.
 
-The project, titled **Machine Intelligence for Motion Exegesis, or MIME**, is the result of a collaboration between Assistant Professor Michael Rau, and the Developer Team at Research Data Services. That team consists of Vijoy Abraham, Peter Broadwell and Simon Wiles.
-
-[I think we should cut these bios]: #
-
-**Michael Rau** is Assistant Professor of Theater and Performance Studies as well as an ~affiliate faculty member~ at HAI here at Stanford University. He received an MFA in Directing from Columbia University and has directed works **internationally** including plays, operas, and digital media projects, and has been featured in the New York Times, the Guardian and the Telegraph. He was the recipient of a 2021 **Artists + Machine Intelligence** Research Award from Google.
-
-**Peter Broadwell** is one of two Digital Scholarship Research Developers at RDS, where his work applies machine learning, web-based visualization, and other methods of digital analysis to complex cultural data. He has a Ph.D. in Musicology from UCLA and an M.S. in Computer Science from UC Berkeley.
-
-**Simon Wiles** is the other Digital Scholarship Research Developer on the team. Before coming to Stanford in 2011 to begin a PhD in Buddhist Philology and Philosophy- he worked, studied, and taught in Asia for many years, where he further developed his extensive technical background across several areas of study.
+The project, titled **Machine Intelligence for Motion Exegesis, or MIME**, is the result of a collaboration between myself, Assistant Professor Michael Rau in Stanford University's Theater and Performance Studies department, and the Developer Team at Research Data Services at the Stanford University Library. That team consists of Vijoy Abraham, Peter Broadwell and Simon Wiles.
 
 
 ---
@@ -66,13 +58,16 @@ The project, titled **Machine Intelligence for Motion Exegesis, or MIME**, is th
 
 <!-- .slide: class="order-of-sections" -->
 
+:::
+Our talk today is divided into four sections, first I'll talk a bit about the problem that we're trying to solve, then Peter will give a technical overview, Simon will talk a little bit of about the platform, and then the bulk of our talk will be focused different types of analyses that our platform has allowed us to perform on a theatrical performance.
+
 ---
 
 
 # The Problem
 
 :::
-Pose and staging lies at the intersection of authorial intent, directorial vision, and is shaped by design choices and is ultimately mediated by the performer.  So examining pose and staging in theater can be challenging since it sits at the heart of artistic expression and is so common and fundamental to the theater that it is often ignored. Our research addresses a fundamental question: How can we quantify and analyze the physical arrangements and movements of actors on stage to reveal meaningful insights about the director's creative contribution?
+Pose is fundamental to the theater. Pose and staging lies at the intersection of authorial intent, directorial vision, and is shaped by design choices and is ultimately mediated by the body of the performer.  So examining pose and staging in theater can be challenging since it sits at the heart of artistic expression and is so common and fundamental to the theater that it is often ignored. Our research addresses a fundamental question: How can we quantify and analyze the physical arrangements and movements of actors on stage to reveal meaningful insights about the director's creative contribution?
 
 
 ---
@@ -131,11 +126,11 @@ However, these individual, memorable poses are just the tip of the iceberg. Our 
 
 In film studies, there is a somewhat dated theory, called auteur theory which provides a framework for understanding a director's unique imprint on their work. Film directors have a range of tools at their disposal – camera angles, editing techniques, lighting choices – that make their stylistic signatures more readily apparent. In theater, however, the director's expressive capabilities are more constrained, and their contribution can be more elusive to pin down. In the theater, a director is constrained more by the physical space that they’re staging in, and the fact that their work happens in real-time, by live actors,who mediate the director’s staging.
 
-This is where the computational analysis of pose in theater becomes interesting. By leveraging technologies like pose estimation and action recognition, we can begin to quantify aspects of theatrical performance that were previously left to subjective interpretation. We can analyze not just individual poses, but patterns of movement, spatial relationships between performers, and even the rhythm and flow of a production. Moreover, we can, use pose analysis to distinguish between the work of different directors, regardless of the actors, performance text, or designer. In this way, we can get closer to understanding the specific contributions that a director provides. This is important because a director’s work is often occluded, sometimes not even mentioned within theater reviews, and most importantly, by several funding agencies considered, not “generative artform, but rather an interpretative artform” and thus not worthy of funding.
+This is where the computational analysis of pose in theater becomes interesting. By leveraging technologies like pose estimation and action recognition, we can begin to quantify aspects of theatrical performance that were previously left to subjective interpretation. We can analyze not just individual poses, but patterns of movement, spatial relationships between performers, and even the rhythm and flow of a production. Moreover, we can use pose analysis to distinguish between the work of different directors, regardless of the actors, performance text, or designer. In this way, we can get closer to understanding the specific contributions that a director provides. This is important because a director’s work is often occluded, sometimes not even mentioned within theater reviews, and most importantly, by several funding agencies considered, not “generative artform, but rather an interpretative artform” and thus not worthy of funding.
 
 Moreover by combining the insights of traditional theater scholarship with the analytical power of computational methods, we can begin to develop a more comprehensive understanding of pose in theater. We can use data to support and enhance our qualitative analyses, and we can use our human understanding of theatrical context to guide our interpretation of the data.
 
-
+I'm going to hand it over to Peter to talk about the methodology that we used. 
 
 
 ---
@@ -226,188 +221,20 @@ The final tool that we adopted to extract, analyze and compare pose data does no
 ---
 
 
-## The MIME Platform
-
-<section>
-<div>
-
-![Platform Diagram](assets/building/platform_diagram.svg)
-<svg class="spotlight" viewBox="0 0 1080 300" preserveAspectRatio="none">
-  <script type="application/json" class="spotlight-data">
-  [
-    {"x":"17px","y":"28px","height":"215px","width":"245px"},
-    {"x":"295px","y":"8px","height":"143px","width":"459px"},
-    {"x":"351px","y":"155px","height":"125px","width":"215px"},
-    {"x":"629px","y":"155px","height":"125px","width":"150px"},
-    {"x":"828px","y":"131px","height":"168px","width":"251px"},
-    {"x":"772px","y":"18px","height":"92px","width":"295px"}
-  ]
-  </script>
-  <defs>
-    <mask id="spotlight-mask">
-      <rect width="1080" height="300" fill="white" opacity=".6"/>
-      <rect x="0" y="0" width="1080" height="300" fill="black"/>
-    </mask>
-  </defs>
-  <rect width="1080" height="300" fill="#000" mask="url(#spotlight-mask)"/>
-</svg>
-
-</div>
-
-:::
-
-This is a diagram of the platform, more-or-less as it exists now
-* it's somewhat loosely-coupled, and this is part of what allows us to easily swap in and out different parts
-
-
-* The hub of the platform is the vector database where the results of the lengthy and expensive inference and computational tasks are stored for retrieval and analysis
-
-  * we did look at dedicated vector database servers, things like Pinecone, Weviate, Qdrant etc, but even though it was fairly new at the time we decided to go with the `pgvector` extension for the PostgreSQL database engine, and that's a choice we'd make again
-    * in addition to all the benefits of PostgresSQL (including the fact that we were already comfortable with it), `pgvector` has been very solid
-    * it offers an array of in-engine similarity metrics and approaches to ANN-based indices (IVFFlat / HNSW)
-    * and performance has been fine
-      * the numbers change as we add and remove performances from the corpus,
-      * we currently have around 20 million embeddings in the database,
-      * and at this scale vector search is never a bottle-neck for us (although we do need to regularly retune the ANN indexes).
-
-* The application and inference server is container that has all our machine-learning dependencies available (so, CUDA and so on, as well as OpenCV and ffmpeg etc.) and its where all our machine learning and back-end  code runs
-  * the expermental nature of the project is such that this is a big ol' container; it provides a full data-science and machine-learning stack including the tensorflow and keras libraries, *as well* as pytorch, the scikit-learn stack, deepface, etc. and also the more domain-specific dependencies and toolchains mentioned earlier.
-  * the container also runs a Jupyter Notebook server that I'll mention again later, and a FastAPI server that exposes the endpoints that are consumed by our web interface
-
-* Our web-ui is internal-facing (the platform is not exposed publicly at all at this time), and it's built with Svelte components on top of  the Astro framework.  We've learned a lot through working with the interface by this point, how best to present and interact with the data, and we're currently developing a mk.2 version which is using Sveltekit.
-
-* The web-ui and notebook server is sat behind a reverse proxy that makes it available to web-browsers
-
-* The whole thing is orchestrated with docker which makes it
-  * relatively easy to deploy across infrastructure platforms
-  * and allows us the same containerized environment across the inference and experimentation cycles (and we can also do training in that environment)
-  * and we can just deploy and fire up a notebook and get hacking against a replica of the production environment
-
-
-* so let's take a look at the interface
-
----
-
-
-## Platform Demonstration
-
-<video id="platform-demo-video" controls muted src="assets/mime-hai-seminar-demo-video.mp4"></video>
-
-:::
-
-# NOTE: Probably the demo should be shorter, and focus on the aspects related to pose comparison
-# and bulk analysis for stylometry. Maybe spend more time showing the mk2 interface?
-[Michael AGREES!]: #
-
-* Performances
-  * On the initial screen we can see  the table of recordings that have been ingested into the platform
-    * The corpus of performances that we have in the system varies as we add and remove things according to our current interest; at present we have 11 recordings and a total of about 7 million poses.
-    * "Tracks" here refers to the number of appearances of a figure (an actor) who can be tracked across frames
-      * so for Julius Caesar here we have well over half a million individual poses detects, and this maps to a little under 3,000 tracks, so 3,000 unique sequences of the same figure moving throuh the same camera shot.
-    * "Shots" is the count of distinct camera shots; when a there's a scene change or a camera shot change, this number is incremented
-
-* So let's select the Stanford TAPS' production of Julius Caesar from March 2023, which was directed by Prof. Rau, and take a look.
-
-* Timeline
-  * The primary interface to the generated dataset is oriented around a timeline chart
-  * Here we have a time series along the x-axis, and a number of metrics of interest are plotted against the y-axis
-  * In the first place we have the track count, this green line, which represents the number of actors detected in the frame
-    * the face counts follow the track counts quite closely, and we would hope, and these discrepancies are mostly where actors are in the frame but are facing away from the camera
-    * here at the end of the production we can find the curtain call, where of course we have the highest track count and face count, as the whole cast is on stage and facing the camera
-  * the average score metric is the confidence score provided by the pose prediction model
-  * the pink lines represent camera shot changes  
-  * the MIME platform also derives metrics that represent the movement of figures on the stage, as well as indices of what we are terming pose and action "interest" -- the degree to which the poses and actions in the frame differ from baseline or "typical" poses and actions across the recording as a whole
-
-
-  * we can zoom in to this five-to-ten minute section here that covers the assasination of caesar
-    * frame # ~95,733 shows the conspirators standing around the body of Caesar
-    * we can see that the pipeline has done a decent job of picking out the seven actors on the stage in the this frame, including Caesar on the floor
-
-    * let's focus on Cassius who has their back to us here and is walking towards Caesar's body
-      * and search for similar poses across the performance
-    * on the left we have a 3D rendering of the pose itself (and we have an experimental editor we've been working on)
-    * and a card representing the source pose itself
-    * and then here we can see the top matches across the recording
-      * these small cutouts are a little difficult to see, especially when there's minimal contrast in the footage
-      * we can draw the pose diagrams over the top of the images to make them a little easier to see what's going on
-        * and now we can see we've found a number of other parts in the performance where an actor has their back to us and is walking away
-      * we can also return to the timeline to get a quick overview of where the most similar poses occur in the context of the recording as a whole
-      * ---
-
-    * the platform also allows us to work with and evaluate different similarity metrics for our searches
-      * here we're searching the view invariant embeddings instead of the original embeddings
-      * and this allows us to find people in similar walking poses irrespective of their orientation with respect the stage or the camera,
-      * we can see here we have found more parts of the performance where we have actors in similar walking poses but in different directions and from different angles
-    * ---
-    * in addition to the pose similarity search, we can also search for similar actions, using data derived using the LART technique
-      * we're still working on this, but it's interesting to see that different matches are surfaced when the additional movement context is part of the equation
-
-  * 3d scene
-    * using the "3D scene" toggle here we can activate the 3d reconstruction of the frame
-    * the 3d predictions provided by the pipeline allow the platform to present a visualization that represents the positions of the actors with respect to one another
-    * these data can support lots of different kinds of analyses, some of which will be discussed later
-    * here we can see Caesar on the floor with Cimber, Brutus is at the top of the steps, and here's Cassius in the pose we were just searching for
-
-  * so these are some of the affordances we have in the timeline view, and we can take a look now at some of the other views
-
-* Faces
-  * The "faces" interface is  a dot plot timeline that presents clusters that have been identified by face recognition and shows when recognized faces appear during the performance.
-  * this is very experimental still; we were hoping we could use face recognition to augment the actor-tracking, with the primary goal of tying together tracks that correspond to the same actor across shots
-  * this is still something we're working on, but the results here aren't as good as we'd like, mainly due to the very inconsistent quality of face recognition on footage like this
-  * so were looking at other ways to achieve our goals here
-
-* Poses
-  * the pose  cluster visualization presents a similar chart, shown here are 15 **groups** of poses that have been clustered on the basis of a similarity metric and they're shown as they're distributed across the timeline of the performance
-    * in addition to using different similarity metrics, the clusters themselves can be produced using a variety of techniques;
-    * here we've just used a simple UMAP algorithm for dimensionality reduction and the HDBSCAN algorithm to perform the clustering, but there are many other possibilities
-  * so for example cluster 15 is a cluster of seated poses including this section where MIchael has Brutus sitting on the front of the stage
-  * and we can see how poses in that similarity cluster are distributed across the performance
-
-* Explorer
-  * Another way of exploring the clusters is with the "PosePlot" explorer, which some folks might recognize as a modification we made of the PixPlot explorer from the Yale DH lab
-  * the cluster exemplars are over here on the left, and we can see our # 15 cluster of sitting folks over here,
-    * here we have a little group of Lucius sitting with hands on knees, leaning a little forward
-    * whereas over here we have a group from the same scene where they're leaning back a little more with their hands more in their lap
-    *
-  * there's also, for example, and interesting cluster down here (#14) of folks standing with their right arms down and their left arms bent, perhaps in a pocket, opening their bodies to the audience (here we have mainly Cassius, Casca, and Marcus Antonius I think)
-  * the PosePlot explorer also allows a timeline-like view which we sometimes refer to as the skyline view, where the poses are binned and stacked by minute, and this allows us another way to get a sense of how different clusters of poses are distributed across the performance
-
-
-* okay, so that's some of what we have in our mk.1 interface
-
-* I do also want to quickly show the mk.2 interface and how we're building on and improving what we've got
-  * here's the search interface as we see matches for that same pose we were looking at earlier
-    * this presentation makes it much easier to see the actors, even if the contrast is still sometimes an issue
-    * we can still view the pose overlay, of course
-    * and it's easy to get a view of the whole frame for additional context
-
-  * searching by all the available similarity metrics is still supported, here we're searching the view invariant embeddings again
-
-  * but one of the main focuses of the new interface is make it easier to operate across multiple performances
-    * so here you can see we're searching for that same pose performed by Cassius in Julius Caesar, but now we're returning matches from across the entire corpus of productions available to the platform
-    * and this opens up new possibilities for exploration
-  
-  * One thing that started out as a bit of fun but has proved surprisingly useful is the search-by-webcam feature we developed;
-    * here a frame can be captured from a webcam, then inference is performed client-side in the users' browser to produce a pose vector in the form we need, and then we can search the MIME database for matches
-      * so here I've performed a pose for the camera and we can look for matches in Julius Caesar, including these wonderful shots of a red-handed Brutus
-      * and we can also look for similar poses across the
-
-
-* And last but not least, the mk.1 interface provides a direct link to the embedded Jupyter server.
-* This has been really useful to us because it allows us to very easily spin up notebooks that are running remotely in the same containerized environment where our inference and analysis is done;
-  * same hardware, same dependencies installed and available, same interface to our embedding databases etc.
-* and this is extremely convenient for prototyping, experimenting, and just noodling around, as well as for conducting more formal analyses.  Peter is going to share some of the early results of some of those analyses now.
-
----
-
 
 # Results & Analysis
 
+---
+
+## Recurring Poses and Thematic Pose Analysis
+
+:::
+Using MIME's timeline, we can easily analyze a production in terms of repetetive gestures. A researcher can simply select a specific pose in the production, and the timeline will show where else the pose shows up in the performance. You can jump easily to those spots in the performance, or you use it chart certain thematic recurrances. The timeline view gives you a distant view of the performance, where you can see chart entrances and exits of performers, and as get a sense of some aspects rhythmic or thematic elements by noting what repeats within the performance and when.
 
 ---
 
 
-## The Test Corpus: Assembling Multiple Works per Director
+## Corpus Studies: Assembling Multiple Works per Director
 
 <img class="r-stretch" src="assets/results/31_performances.png" />
 
@@ -433,9 +260,9 @@ View-invariant pose embeddings
 </div>
 
 :::
-We framed our computational approach to directorial style as a performance-to-director classification problem: from the derived pose, action, motion and distance data, which elements are most effective at predicting the correct stage director for a given performance? We began with “leave one out” (LOO) tests in which we assembled the average pose distance and motion features into a vector for each performance, then did the same for the view-invariant pose embedding vectors and action recognition vectors, and also the 3D “global orientation” pose keypoint coordinates. We then compared these to aggregate vector averages of these values across all of a director’s works except the held-out performance, matching a performance's average vector to the director's vector to which it has the highest cosine similarity.
+We framed our computational approach to directorial style as a performance-to-director classification problem. The question we asked was this: from the derived pose, action, motion and distance data, which elements are most effective at predicting the correct stage director for a given performance? We began with what are called "leave one out" tests - or LOO tests. In these tests, we assembled the average pose distance and motion features into a vector for each performance. We then did the same for the view-invariant pose embedding vectors and action recognition vectors, and also the 3D "global orientation" pose keypoint coordinates. We then compared these to aggregate vector averages of these values across all of a director's works - except the held-out performance. We matched a performance's average vector to the director's vector to which it has the highest cosine similarity.
 
-Here you can see the resulting confusion matrices from some of these simple "leave one out" experiments. The basic pose and motion statistics were not as effective at differentiating works by Castellucci and Warlikowski as they were at telling the difference between Bill T. Jones and the other two, while the aggregated pose embeddings were more successful at differentiating the works of all three.
+Here you can see the resulting confusion matrices from some of these simple "leave one out" experiments. The basic pose and motion statistics were not as effective at differentiating works by Castellucci and Warlikowski. However, they were quite good at telling the difference between Bill T. Jones and the other two directors. Meanwhile, the aggregated pose embeddings were more successful at differentiating the works of all three directors.
 
 
 ---
@@ -446,7 +273,7 @@ Here you can see the resulting confusion matrices from some of these simple "lea
 <img class="r-stretch" src="assets/results/31_performances_hl.png" />
 
 :::
-We've returned briefly to the full table of performances, now with some colorization to point out recordings with higher in-place or "sidereal" (relative to the backdrop) motion and inter-pose distances. As you can see, most are from Bill T. Jones, who primarily directs dance works, while the other two tend to direct mostly operas and other more static forms of stage plays. So the motion and distance-based comparison may be better at clueing in to the difference in primary genres between the directors, while the pose embedding approach seems to be picking up something distinctive about each director's style. We'll look into what that might be in a minute.
+We've returned briefly to the full table of performances, now with some colorization to point out recordings with higher in-place motion and inter-pose distances. I should mention that we call this in-place motion "sidereal" motion - meaning motion that's relative to the backdrop. As you can see, most of these high-motion recordings are from Bill T. Jones, who primarily creates dance works. The other two directors tend to direct mostly operas and other more static forms of stage plays. So the motion and distance-based comparison may be better at picking up on the difference in primary genres between these directors. Meanwhile, the pose embedding approach seems to be picking up something distinctive about each director's individual style. We'll look into what that might be in just a minute.
 
 
 ---
@@ -465,7 +292,8 @@ Action recognition embeddings
 </div>
 
 :::
-Here are some further leave-one-out classification experiments with the 3D pose coordinates and action recognition vectors used as features. The action recognition embeddings do seem to be somewhat better than the 3D coordinates for telling the directors apart.
+Here are some further leave-one-out classification experiments with the 3D pose coordinates and action recognition vectors used as features. Action recognition is the sequence of poses (changes in body position over time) to recognize the action being performed. For example, it might identify "walking," "running," "jumping," or "waving" based on the movement patterns. 
+The action recognition embeddings do seem to be somewhat better than the 3D coordinates for telling the directors apart.
 
 
 ---
@@ -476,42 +304,45 @@ Here are some further leave-one-out classification experiments with the 3D pose 
 <img class="r-stretch" src="assets/results/classification_experiments.png" />
 
 :::
-The results of the leave-one-out tests are largely replicated in analyses involving more sophisticated classification algorithms and using 10-fold cross-validation with different random seeds, when available, to try to get a better sense of how these approaches might do with a larger, more diverse dataset. Remember that 33% accuracy would be expected by chance. It's interesting, however, that the Gaussian Naive Bayes classifier is nearly as good, and certainly within the margin of error, at differentiating between directors based on motion and distance statistics as the formerly dominant embedding approaches are with any approach. (Note that we tried many other classifiers here, including some fancy neural models, but their results were all in the ranges of the Random Forest and Gaussian Naive Bayes methods).
+The results of the leave-one-out tests are largely replicated in analyses involving more sophisticated classification algorithms and using 10-fold cross-validation with different random seeds, when available, to try to get a better sense of how these approaches might do with a larger, more diverse dataset. 
+
 
 ---
 
-
-## Which Features Are Best for Differentiating between Directors?
+## Hands and Delsarte
 
 <div class="img-row">
 
-Pose motion and distance
-![Pose motion and distance feature importances](assets/results/importances_motion_distance_nb.png "Pose motion and distance feature importances")
+Delsarte Pose
+![Pose motion and distance feature importances](assets/results/delsarte_exercises.jpg "Poses from Delsarte Instruction Manual")
 
-View-invariant pose embedding
-![Pose embedding importances](assets/results/importances_poem_nb.png "Pose embedding importances")
+MIME Detection
+![Hands inclusion](assets/results/Delsarte_results.png "Delsarte Comparison")
 
 </div>
 
 :::
-To get at the question of exactly which elements of these feature sets the models found the most useful at differentiating between directors, we ran some feature importance tests (specifically with the Gaussian Naive Bayes model, as it generally performed the best). Although the error bars are large (again) due to the small set of performances to be classified, it seems that the average amount of motion in a video is one of the most powerful predictors of the director's identity, while the average distance between performers on stage is not so useful.
-
-In the case of the embeddings, however, it's more difficult to determine what the salience of "feature 4" (out of 16) actually means for poses -- we'll show some initial steps we've taken to dig into this in a couple of slides.
-
+One of the more recent developments that we've been working on with MIME is to take the 19th century pose system that has a long, influential and bizarre history, particularly strong in American modern modern dance. The delsarte system has a series of codified full-figure and hand poses, and using the search function of MIME, we were able to identify precisely where and when certain actors would arrive in certain poses. These poses allowed us to create "Delsarte Thumbprints" to not only see which gestures are reminiscient of Delsarte's choreography, 
 
 ---
 
+## Delsarte Thumbprint
 
-## Which Features Are Best for Differentiating between Directors?
+<div class="img-row">
 
-Body keypoint coords (3D)  
-<img class="r-stretch" src="assets/results/importances_keypoints_nb.png" />
+Delsarte Thumbprint for Bill T Jones
+![Pose frequency throughout the work](assets/results/Fondly-Poses.png "Poses from Delsarte Instruction Manual")
+
+MIME Detection
+![Hands inclusion](assets/results/Fondly_hands.png "Delsarte Comparison")
+
+</div>
 
 :::
-And considering the 3D body keypoint coordinates, this plot might be a bit hard to read, but essentially the lateral positions of the right wrist, and then the left wrist as viewed from the "global" perspective (essentially from directly in front of the actor) was the most indicative of a director's style, followed by the lateral apsects of the right elbow and knee, then other aspects of the shoulders, knees, ankles, nose, with the hips being less important. The data are quite noisy here, but interestingly the right-handedness bias (due to up to 90% of the global population being right-handed) does seem to extend to the right side of the body more generally.
+
+Describe the results here?
 
 ---
-
 
 ## Visualizing Directors' Pose "Repertoires"
 
@@ -546,9 +377,6 @@ This projection does seem to reveal useful insights, like the overall greater si
 
 :::
 
-# NOTE: Not sure whether to include this section...
-# If we have more results involving hand analysis and archetype "fingerprints" 
-# (Delsart or otherwise), we probably should show those instead
 
 Our final analytical experiment to date, which is still a work in progress, sort of inverts the previous approach and instead considers what MIME can reveal when comparing staging from seven different directors who are all directing the same work -- in this case the famous Mozart/Da Ponte opera Don Giovanni from 1787.
 
