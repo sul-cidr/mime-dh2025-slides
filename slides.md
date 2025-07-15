@@ -306,37 +306,6 @@ The action recognition embeddings do seem to be somewhat better than the 3D coor
 :::
 The results of the leave-one-out tests are largely replicated in analyses involving more sophisticated classification algorithms and using 10-fold cross-validation with different random seeds, when available, to try to get a better sense of how these approaches might do with a larger, more diverse dataset. 
 
----
-
-
-## Which Features Are Best for Differentiating between Directors?
-
-<div class="img-row">
-
-Pose motion and distance
-![Pose motion and distance feature importances](assets/results/importances_motion_distance_nb.png "Pose motion and distance feature importances")
-
-View-invariant pose embedding
-![Pose embedding importances](assets/results/importances_poem_nb.png "Pose embedding importances")
-
-</div>
-
-:::
-To get at the question of exactly which elements of these feature sets the models found the most useful at differentiating between directors, we ran some feature importance tests (specifically with the Gaussian Naive Bayes model, as it generally performed the best). Although the error bars are large (again) due to the small set of performances to be classified, it seems that the average amount of motion in a video is one of the most powerful predictors of the director's identity, while the average distance between performers on stage is not so useful.
-
-In the case of the embeddings, however, it's more difficult to determine what the salience of "feature 4" (out of 16) actually means for poses -- we'll show some initial steps we've taken to dig into this in a couple of slides.
-
-
----
-
-
-## Which Features Are Best for Differentiating between Directors?
-
-Body keypoint coords (3D)  
-<img class="r-stretch" src="assets/results/importances_keypoints_nb.png" />
-
-:::
-And considering the 3D body keypoint coordinates, this plot might be a bit hard to read, but essentially the lateral positions of the right wrist, and then the left wrist as viewed from the "global" perspective (essentially from directly in front of the actor) was the most indicative of a director's style, followed by the lateral apsects of the right elbow and knee, then other aspects of the shoulders, knees, ankles, nose, with the hips being less important. The data are quite noisy here, but interestingly the right-handedness bias (due to up to 90% of the global population being right-handed) does seem to extend to the right side of the body more generally.
 
 ---
 
