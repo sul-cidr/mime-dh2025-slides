@@ -496,10 +496,27 @@ Thank you.
 
 ---
 
+## Collinearity of Motion and Distance Features
+
+<p class="stretch"><img
+  src="assets/results/feature_collinearity.png"
+/></p>
+
+---
+
 ## 3D Keypoint Importances (Random Forest)
 
 <p class="stretch"><img
   src="assets/results/keypoint_importances_rf.png"
+/></p>
+
+---
+
+
+## Collinearity of 3D Keypoint Coordinates
+
+<p class="stretch"><img
+  src="assets/results/keypoint_collinearity.png"
 /></p>
 
 ---
@@ -513,14 +530,6 @@ Thank you.
 ![Pose embedding feature importances, Random Forest (sorted)](assets/results/poem_importances_rf.png "Pose embedding feature importances, Random Forest") Mean Decrease in Impurity (Random Forest)
 
 </div>
-
----
-
-## Collinearity of Motion and Distance Features
-
-<p class="stretch"><img
-  src="assets/results/feature_collinearity.png"
-/></p>
 
 ---
 
