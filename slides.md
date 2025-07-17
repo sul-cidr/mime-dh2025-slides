@@ -415,9 +415,9 @@ The table above gives derived statistics of the performances, highlighting entri
 
 ## Aligning Performances (by Music) to Get Average Pose "Consensus"
 
-  <img class="r-stretch"
-    src="assets/methods/Don_Giovanni-Soderblom-Helsinki_UzxYEVbOS5w.mp4_chroma_time_correspondences.png"
-  />
+<img class="r-stretch"
+  src="assets/methods/Don_Giovanni-Soderblom-Helsinki_UzxYEVbOS5w.mp4_chroma_time_correspondences.png"
+/>
 
 
 :::
@@ -475,3 +475,73 @@ Thank you.
 
 </div>
 
+
+---
+
+
+# Appendix
+
+
+---
+
+## Feature Importances: Motion and Distance (Random Forest)
+
+<div class="img-row">
+
+![Motion and distance feature importances, Random Forest](assets/results/feature_importances_rf.png "Motion and distance feature importances, Random Forest") Permutation Importance
+
+![Motion and distance feature importances, Random Forest (sorted)](assets/results/feature_importances_rf_sorted.png "Motion and distance feature importances, Random Forest") Mean Decrease in Impurity
+
+</div>
+
+---
+
+## 3D Keypoint Importances (Random Forest)
+
+<p class="stretch"><img
+  src="assets/results/keypoint_importances_rf.png"
+/></p>
+
+---
+
+## Feature Importances: View-Invariant Pose Embeddings
+
+<div class="img-row">
+
+![Pose embedding feature importances, Random Forest](assets/results/poem_feature_importances_nb.png "Pose embedding feature importances, Random Forest") Permutation Importance (Gaussian Naive Bayes)
+
+![Pose embedding feature importances, Random Forest (sorted)](assets/results/poem_importances_rf.png "Pose embedding feature importances, Random Forest") Mean Decrease in Impurity (Random Forest)
+
+</div>
+
+---
+
+## Collinearity of Motion and Distance Features
+
+<p class="stretch"><img
+  src="assets/results/feature_collinearity.png"
+/></p>
+
+---
+
+## Collinearity of View-Invariant Pose Vector Features
+
+<p class="stretch"><img
+  src="assets/results/poem_vector_collinearity.png"
+/></p>
+
+---
+
+## Pose "Repertoires" Visualization (Labeled Performances)
+
+<p class="stretch"><img
+  src="assets/results/poem_embedding_umap_labeled.png"
+/></p>
+
+---
+
+## Action "Repertoires" Visualization
+
+<p class="stretch"><img
+  src="assets/results/ava_umap.png"
+/></p>
