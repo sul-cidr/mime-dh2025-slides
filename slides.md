@@ -33,7 +33,7 @@
 
 :::
 
-Welcome everyone, and thank you for joining us today. 
+Welcome everyone, and thank you for joining us today.
 We will discuss our exploratory work in bringing Machine Learning techniques to the study of theater performance and, in particular, to the study of directorial style.
 
 The project, titled **Machine Intelligence for Motion Exegesis, or MIME**, is the result of a collaboration between myself, Assistant Professor Michael Rau in Stanford University's Theater and Performance Studies department, and the Developer Team at Research Data Services at the Stanford University Library. That team consists of Vijoy Abraham, Peter Broadwell and Simon Wiles.
@@ -130,7 +130,7 @@ This is where the computational analysis of pose in theater becomes interesting.
 
 Moreover by combining the insights of traditional theater scholarship with the analytical power of computational methods, we can begin to develop a more comprehensive understanding of pose in theater. We can use data to support and enhance our qualitative analyses, and we can use our human understanding of theatrical context to guide our interpretation of the data.
 
-I'm going to hand it over to Peter to talk about the methodology that we used. 
+I'm going to hand it over to Peter to talk about the methodology that we used.
 
 
 ---
@@ -153,7 +153,7 @@ I'm going to hand it over to Peter to talk about the methodology that we used.
 </div>
 
 :::
-As Michael mentioned, this project works with a corpus of films recorded with standard 2D cameras, so we can't rely on any special 3D camera or motion capture input. Being able to run accurate pose analyses on such moving images opens up basically the entire history of theater on film for analysis, but it can be quite challenging given "in the wild" live stage or studio recordings, with multiple cameras, cuts, occlusion, shadows and so forth. 
+As Michael mentioned, this project works with a corpus of films recorded with standard 2D cameras, so we can't rely on any special 3D camera or motion capture input. Being able to run accurate pose analyses on such moving images opens up basically the entire history of theater on film for analysis, but it can be quite challenging given "in the wild" live stage or studio recordings, with multiple cameras, cuts, occlusion, shadows and so forth.
 
 The first convolutional neural network-based pose estimation tools, such as OpenPose circa 2018, worked OK on recordings made in controlled environments and for things like TikTok videos with only one or two people who are in the frame at all times. But as you can see from the image on the left, even after some further refinements found in more recent versions of Open PifPaf, they struggle with in-the-wild videos such as the example shown here and are even more limited at estimating 3D coordinates and tracking multiple people in the shot.
 
@@ -207,27 +207,208 @@ Finally we adopted another embedding, this one from Google and CalTech, that pro
 
 # The MIME Platform
 
+<div>&nbsp;</div>
+
+
+### Pipeline → Database → API Server → Interfaces
+
 
 :::
-* To allow us to experiment and work with these techniques and models, we have built a platform to support our development and to allow us to make this work accessible to Prof. Rau and to other researchers
 
-* it's really the platform that makes it easy for us to construct pipelines for processing and running inference against videos of theatrical performances.
+So how do we operationalize these models and techniques?  How do we take the outputs of the inferences and predictions they generate and make them useful for exploring our research questions?
 
-* it's a place where we can experiment with and evaluate different approaches and technologies, and we're also able to incorporate new developments as they arise, for example the shift from OpenPifPaf (the convolutional model) to the transformer-based PHALP model.
+The MIME platform consists of a modular ingestion pipeline, a database with sophisticated vector storage and indexing capabilities, an application and API server, and a collection of related interfaces that allow us to investigate and analyze the data we have assembled using things like
+* similarity metrics
+* nearest neighbour search
+* clustering,
+* and a variety of different visualizations.
 
-* Furthermore the platform allow us to interrogate the results using things like
-  * similarity metrics
-  * nearest neighbour search
-  * clustering,
-  * and to visualize and explore the various data we're able to produce.
+
+The loosely-coupled nature of these components allows us to experiment with different approaches while still providing a consistent framework for our development.
 
 ---
 
+
+## Pipeline
+
+
+<ul style="margin-top:2rem">
+  <li><strong style="font-size:2rem">Inference Tasks</strong>
+    <ul>
+      <li>Pose Estimation (PHALP/4D-Humans)</li>
+      <li>Action Estimation (LART)</li>
+      <li>View-Invariant Embeddings (Pr-VIPE)</li>
+      <li>Shot Detection (TransNetV2)</li> <!-- .element: class="fragment" -->
+      <li>Face Recognition (ArcFace/DeepFace)</li> <!-- .element: class="fragment" -->
+      <li>Hand Estimation (WiLoR)</li> <!-- .element: class="fragment" -->
+    </ul><!-- .element: class="fragment" -->
+  </li>
+
+
+  <li style="margin-top:2rem"><strong style="font-size:2rem">Coordination Steps</strong>
+    <ul>
+      <li>coordination of hands and poses</li>
+      <li>segmentation into movelets</li><!-- .element: class="fragment" -->
+      <li>calculation of pose-interest and action-interest metrics</li><!-- .element: class="fragment" -->
+      <li>pregeneration of pose and face clusters</li><!-- .element: class="fragment" -->
+    </ul> <!-- .element: class="fragment" -->
+  </li><!-- .element: class="fragment" -->
+</ul> <!-- .element: class="fragment" -->
+
+:::
+
+The pipeline is first and foremost about running the inference tasks.
+
+In addition to the three core technologies that Peter already introduced our ingestion pipeline can also optionally perform Shot-Detection, Face Recognition, and Hand Estimation,
+
+and once we have all this information we also need to perform a number of coordination tasks
+
+~since the hand estimation and pose estimation come from separate models we need to perform some additional analysis to join them up together.~
+
+---
+
+<div>
+
+
+## Database
+
+* PostgreSQL / pgvector
+* Multiple similarity metrics
+* ANN Indexes (`IVFFlat`, `HNSW`)
+</div>
+
+
+<div style="margin-top: 2rem">
+
+
+## Application / API Server
+
+* Machine-Learning dependencies
+* Full Data-Science stack
+* Jupyter Notebook server <!-- .element: class="fragment" -->
+* FastAPI server <!-- .element: class="fragment" -->
+
+
+</div><!-- .element: class="fragment" -->
+
+:::
+
+These inference and computational tasks are lengthy and expensive, so all this data is ingested ultimately into our database server for subsequent retrieval and analysis.  For our vector storage and querying capabilities we're using pgvector which offers a number of affordances for the performant Approximate Nearest Neighbour searches on which much of the functionality is built one way or another.
+
+
+The Application and API server is a container that has all our machine-learning dependencies available and its where all our machine learning and back-end code runs
+
+The container is also home to a Jupyter Notebook server and a FastAPI server that exposes the endpoints that are consumed by our web interface
+
+---
+
+
+# The MIME Platform
+
+<section>
+<div>
+
+![Platform Diagram](assets/building/platform_diagram.svg)
+<svg class="spotlight" viewBox="0 0 1080 300" preserveAspectRatio="none">
+  <script type="application/json" class="spotlight-data">
+  [
+    {"x":"17px","y":"28px","height":"215px","width":"245px"},
+    {"x":"295px","y":"8px","height":"143px","width":"459px"},
+    {"x":"351px","y":"155px","height":"125px","width":"215px"},
+    {"x":"629px","y":"155px","height":"125px","width":"150px"},
+    {"x":"828px","y":"131px","height":"168px","width":"251px"},
+    {"x":"772px","y":"18px","height":"92px","width":"295px"}
+  ]
+  </script>
+  <defs>
+    <mask id="spotlight-mask">
+      <rect width="1080" height="300" fill="white" opacity=".6"/>
+      <rect x="0" y="0" width="1080" height="300" fill="black"/>
+    </mask>
+  </defs>
+  <rect width="1080" height="300" fill="#000" mask="url(#spotlight-mask)"/>
+</svg>
+
+</div>
+
+:::
+
+This is a diagram of the platform, more-or-less as it exists now
+* each of these parts can be easily swapped in and out as we're experimenting
+
+* The whole thing is orchestrated with docker which a number of important benefits for a platform like this.
+
+---
+
+
+# Interfaces
+
+:::
+We don't have time for a live demonstration today, so instead I'll very quickly share some screenshots from some of the interface affordances we have available.
+
+---
+
+<img src="assets/interface/mime-mk1-timeline.png" >
+<!-- .slide: data-transition="slide-in fade-out"-->
+
+:::
+This is a timeline view for a single performance that lets us see how our data are distributed along a temporal axis.
+
+---
+
+<img src="assets/interface/mime-mk1-pose-search.png">
+<!-- .slide: data-transition="fade" -->
+
+:::
+This is our first iteration of a pose similariy search interface.
+
+---
+
+<img src="assets/interface/mime-mk1-frame-view.png">
+<!-- .slide: data-transition="fade" -->
+
+:::
+Here is a full view of a single frame.
+
+---
+
+<img src="assets/interface/mime-mk1-face-clusters.png">
+<!-- .slide: data-transition="fade" -->
+
+:::
+We have face clustering plotted along a time axis.
+
+---
+
+<img src="assets/interface/mime-mk1-3d-scene.png">
+<!-- .slide: data-transition="fade" -->
+
+:::
+A 3D scene reconstruction
+
+---
+
+<img src="assets/interface/poseplot_r.gif">
+<!-- .slide: data-transition="fade" -->
+
+:::
+This is an interactive 2D UMAP projection of poses clustered with the HDBSCAN algorithm.
+
+---
+
+<img src="assets/interface/webcam.gif">
+<!-- .slide: data-transition="fade-in slide-out" -->
+
+:::
+And finally this is one from our new interface showing yours truly performing a pose in front of a webcam and using that to search across a corpus of recordings.
+
+---
 
 
 # Results & Analysis
 
 ---
+
 
 ## Recurring Poses and Thematic Pose Analysis
 
@@ -312,6 +493,7 @@ Here are some results with slightly more sophisticated classification algorithms
 
 ---
 
+
 ## Hands and Delsarte
 
 <div class="img-row">
@@ -325,9 +507,10 @@ MIME Detection
 </div>
 
 :::
-One of the more recent developments that we've been working on with MIME is to take the 19th century pose system that has a long, influential and bizarre history, particularly strong in American modern modern dance. The delsarte system has a series of codified full-figure and hand poses, and using the search function of MIME, we were able to identify precisely where and when certain actors would arrive in certain poses. These poses allowed us to create "Delsarte Thumbprints" to not only see which gestures are reminiscient of Delsarte's choreography, 
+One of the more recent developments that we've been working on with MIME is to take the 19th century pose system that has a long, influential and bizarre history, particularly strong in American modern modern dance. The delsarte system has a series of codified full-figure and hand poses, and using the search function of MIME, we were able to identify precisely where and when certain actors would arrive in certain poses. These poses allowed us to create "Delsarte Thumbprints" to not only see which gestures are reminiscient of Delsarte's choreography,
 
 ---
+
 
 ## Delsarte Thumbprint
 
@@ -346,6 +529,7 @@ MIME Detection
 Describe the results here?
 
 ---
+
 
 ## Visualizing Directors' Pose "Repertoires"
 
@@ -453,7 +637,7 @@ As a final analytical output of the effort just described, we can plot the pose 
 :::
 The computational analysis of pose and action in theatrical performances, as presented in this research, opens new avenues for understanding directorial style. This is particularly significant because the creative contributions of directors are often overlooked or reduced to a single memorable moment or tableau. In reality, the staging of a theatrical production is a meticulous process that unfolds over weeks or even months, with the director crafting every moment of the performance. By leveraging this technology to examine their work in minute detail, we gain a more comprehensive view of their artistic vision.
 And from my point of view this technology is opening whole new ways of examining a performance, so I’m going to quickly go over some of the ways in which pose can allow for a unique analyses of a performance.  By using the pose similarity function we can start to identify recurring poses, symmetry within poses, and looking at the overall timeline view of a performance, to see the rhythmic ebb and flow of a staging. Using pose we can more readily identify the common themes and stylistic elements that define a director’s creative output, and separate out their unique contribution, divorced from the work of the performers, or the constraints of the particular text or physical space.
-By analyzing pose and movement across a director’s entire body of work, we can identify recurring patterns and trace the evolution of their style—elements that might remain elusive when examining individual performances in isolation. Additionally, this method enables objective comparisons between different directors’ interpretations of the same material, potentially revealing new dimensions of artistic expression and decision-making. By comparing different director’s versions of the same work, we can start to see how physical expression, and spatial storytelling evolves over time, or across different cultures, or in specific canonical works, look at how a director’s staging deviates from the traditional norms. Scholars could look at certain themes or characters that are represented physically over time, an easy topic would be to look at how kings are represented in different stagings, to see how poses associated with power can vary between productions. This technology could also be used to chart how an actor’s physical choices evolve through rehearsals and performances. Then scholars might use the rehearsal and performance pose data to study methodologies of actor training or directorial vision. Given the precision of the timeline view, we can also correlate pose data with audience response (based on applause or laughter) to see which types of physical expression elicit the strongest responses, so that could deepen our understanding of how audiences engage with a live performance. As a practicing artist, I see this tool enabling new types of staging, helping to rethink pose within canonical performances, and inspiring innovative uses of pose. And ultimately I see the potential of this technology to create an unprecedented record of a production’s physical language, which can be a valuable resource for future research, teaching, or restaging. 
+By analyzing pose and movement across a director’s entire body of work, we can identify recurring patterns and trace the evolution of their style—elements that might remain elusive when examining individual performances in isolation. Additionally, this method enables objective comparisons between different directors’ interpretations of the same material, potentially revealing new dimensions of artistic expression and decision-making. By comparing different director’s versions of the same work, we can start to see how physical expression, and spatial storytelling evolves over time, or across different cultures, or in specific canonical works, look at how a director’s staging deviates from the traditional norms. Scholars could look at certain themes or characters that are represented physically over time, an easy topic would be to look at how kings are represented in different stagings, to see how poses associated with power can vary between productions. This technology could also be used to chart how an actor’s physical choices evolve through rehearsals and performances. Then scholars might use the rehearsal and performance pose data to study methodologies of actor training or directorial vision. Given the precision of the timeline view, we can also correlate pose data with audience response (based on applause or laughter) to see which types of physical expression elicit the strongest responses, so that could deepen our understanding of how audiences engage with a live performance. As a practicing artist, I see this tool enabling new types of staging, helping to rethink pose within canonical performances, and inspiring innovative uses of pose. And ultimately I see the potential of this technology to create an unprecedented record of a production’s physical language, which can be a valuable resource for future research, teaching, or restaging.
 Moreover, the implications of this research extend beyond theater studies. First, this methodology can be readily adapted to analyze performances in film, opera, dance, and other any of the arts involving human movement. Beyond the arts, this approach could also be applied to diverse fields, from analyzing political speeches to studying the biomechanics of physiology and sports.
 However, it is crucial to acknowledge the ethical considerations and limitations inherent in this approach. As with all AI, there is a danger in hallucinations and incorrect pose estimations. There are always responsible use considerations when working with archival materials of directors, actors. This presents a complex ethical landscape that requires careful navigation, and as a team we’ve developed clear guidelines and frameworks to ensure respectful and responsible use of these technologies and materials.
 From an analytical standpoint, we must also recognize the limitations of focusing solely on pose and action. Theater is a multifaceted art form, and while pose is a critical component, it represents only one thread in a rich tapestry that includes dialogue, set design, lighting, sound, and more. Without taking those other elements into account, we run the risk of not interpreting a production properly. While this computational analysis provides valuable insights, it should be viewed as a complement to, rather than a replacement for, traditional methods of artistic analysis. It offers a narrow but powerful lens through which to examine performance, enriching our understanding rather than supplanting it.
