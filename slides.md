@@ -59,7 +59,7 @@ The project, titled **Machine Intelligence for Motion Exegesis, or MIME**, is th
 <!-- .slide: class="order-of-sections" -->
 
 :::
-Our talk today is divided into four sections, first I'll talk a bit about the problem that we're trying to solve, then Peter will give a technical overview, Simon will talk a little bit of about the platform, and then the bulk of our talk will be focused different types of analyses that our platform has allowed us to perform on a theatrical performance.
+Our talk today is divided into five sections, first I'll talk a bit about the problem that we're trying to solve, then Peter will give a technical overview, Simon will talk a little bit of about the platform, and then the bulk of our talk will be focused different types of analyses that our platform has allowed us to perform on a theatrical performance.
 
 ---
 
@@ -68,7 +68,6 @@ Our talk today is divided into four sections, first I'll talk a bit about the pr
 
 :::
 Pose is fundamental to the theater. Pose and staging lies at the intersection of authorial intent, directorial vision, and is shaped by design choices and is ultimately mediated by the body of the performer.  So examining pose and staging in theater can be challenging since it sits at the heart of artistic expression and is so common and fundamental to the theater that it is often ignored. Our research addresses a fundamental question: How can we quantify and analyze the physical arrangements and movements of actors on stage to reveal meaningful insights about the director's creative contribution?
-
 
 ---
 
@@ -92,6 +91,7 @@ Pose is fundamental to the theater. Pose and staging lies at the intersection of
 </div>
 
 <!-- .slide: data-transition="slide-in fade-out" -->
+
 :::
 To answer this question, we turned to computer vision algorithms capable of detecting precise poses of the actors for every single frame of video in an archival production. Our methodology involves running pose detection on numerous archival videos, which generates hundreds of thousands of poses, and then sift through that pose data in order to draw meaningful conclusions.
 
@@ -412,6 +412,7 @@ And finally this is one from our new interface showing yours truly performing a 
 
 ## Recurring Poses and Thematic Pose Analysis
 
+<video id="platform-demo-video" controls muted src="assets/Bausch4.mp4"></video>
 :::
 Using MIME's timeline, we can easily analyze a production in terms of repetetive gestures. A researcher can simply select a specific pose in the production, and the timeline will show where else the pose shows up in the performance. You can jump easily to those spots in the performance, or you use it chart certain thematic recurrances. The timeline view gives you a distant view of the performance, where you can see chart entrances and exits of performers, and as get a sense of some aspects rhythmic or thematic elements by noting what repeats within the performance and when.
 
@@ -444,7 +445,7 @@ View-invariant pose embeddings
 </div>
 
 :::
-We framed our approach as a performance-to-director classification problem, investigating which pose, action, motion and distance data elements are most effective at predicting the correct stage director for a given performance. The first steps was a basic "leave one out" test comparing the aggregated, averaged feature vectors across each director's entire collection to the average feature ector of one "held out" performance, using cosine similarity, in what's basically a very simple multidimensional kernel-based similarity comparison approach.
+We framed our approach as a performance-to-director classification problem, investigating which pose, action, motion and distance data elements are most effective at predicting the correct stage director for a given performance. The first steps was a basic "leave one out" test comparing the aggregated, averaged feature vectors across each director's entire collection to the average feature vector of one "held out" performance, using cosine similarity, in what's basically a very simple multidimensional kernel-based similarity comparison approach.
 
 This approach found that the basic pose and motion statistics were not as effective at differentiating works by Castellucci and Warlikowski. However, they were quite good at telling the difference between Bill T. Jones and the other two directors. Meanwhile, the aggregated pose embeddings were more successful at differentiating the works of all three directors.
 
@@ -507,7 +508,7 @@ MIME Detection
 </div>
 
 :::
-One of the more recent developments that we've been working on with MIME is to take the 19th century pose system that has a long, influential and bizarre history, particularly strong in American modern modern dance. The delsarte system has a series of codified full-figure and hand poses, and using the search function of MIME, we were able to identify precisely where and when certain actors would arrive in certain poses. These poses allowed us to create "Delsarte Thumbprints" to not only see which gestures are reminiscient of Delsarte's choreography,
+One of the more recent developments that we've been working on with MIME is to take the 19th century pose system that has a long, influential and bizarre history, particularly strong in American modern modern dance. The delsarte system has a series of codified full-figure and hand poses, and using the search function of MIME, we were able to identify precisely where and when certain actors would arrive in certain poses. These poses allowed us to create "Delsarte Thumbprints" to not only see which gestures are reminiscient of Delsarte's choreography, and to track the frequency through which they appear in a production.
 
 ---
 
@@ -516,17 +517,16 @@ One of the more recent developments that we've been working on with MIME is to t
 
 <div class="img-row">
 
-Delsarte Thumbprint for Bill T Jones
-![Pose frequency throughout the work](assets/results/Fondly-Poses.png "Poses from Delsarte Instruction Manual")
+Bill T Jones's Fondly Do We Hope
+![Pose frequency throughout the work](assets/results/Fondly2.png "Poses from Delsarte Instruction Manual")
 
-MIME Detection
-![Hands inclusion](assets/results/Fondly_hands.png "Delsarte Comparison")
+Romeo Castellucci's Democracy in America
+![Hands inclusion](assets/results/Castellucci-Delsarte.png "Delsarte Comparison")
 
 </div>
 
 :::
-
-Describe the results here?
+Here you can see two different "thumbprints"--that demonstrate the the difference quantities of pose throughout the show. Bill T. Jones' production shows far more "Prostration" than Castellucci. And Castellucci's production features far more poses of supplication. And while it may seem a little silly to use these 19th century melodramatic poses to analize a works of contemporary theater, this method points towards ways in which this technology could be used to trace the genelogy of artistic movements, and the subtle ways that historical aesthetics shape our contemprary tastes. 
 
 ---
 
