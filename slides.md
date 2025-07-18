@@ -322,7 +322,7 @@ The container is also home to a Jupyter Notebook server and a FastAPI server tha
 
 This diagram describes the platform architecture that delivers the flexibility we need
 
-The whole thing is orchestrated with docker which make maintaining it and working with it very convenient.
+The whole thing is orchestrated with docker which makes maintaining it and working with it very convenient.
 
 ---
 
@@ -394,7 +394,9 @@ Searching for a source pose from one recording across a corpus of recordings...
 <!-- .slide: data-transition="fade-in slide-out" -->
 
 :::
-And finally this is one from our new interface showing yours truly performing a pose in front of a webcam and using that to search across a corpus of recordings.
+And finally here's yours truly performing a pose in front of a webcam and using that to search for poses.
+
+Michael's now going to show us some of the ways he's been able to make use of these affordances in his work.
 
 ---
 
