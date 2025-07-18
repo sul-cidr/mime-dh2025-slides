@@ -147,11 +147,11 @@ I'll hand it over to Peter to discuss our methodology.
 </div>
 
 :::
-As Michael mentioned, this project works with a corpus of films recorded with standard 2D cameras, so we can't rely on any special 3D camera or motion capture input. Being able to run accurate pose analyses on such moving images opens up basically the entire history of theater on film for analysis, but it can be quite challenging given "in the wild" live stage or studio recordings, with multiple cameras, cuts, occlusion, shadows and so forth.
+As Michael mentioned, this project works with moving images recorded on standard 2D "monocular" cameras. This opens up basically the entire history of theater on film for analysis, but it can be quite challenging to get sufficient accurate pose data from such "in the wild" live stage or studio recordings, due to multiple camera angles, panning, cuts, occlusion, shadows and so forth.
 
-The first convolutional neural network-based pose estimation tools, such as OpenPose circa 2018, worked OK on recordings made in controlled environments and for things like TikTok videos with only one or two people who are in the frame at all times. But as you can see from the image on the left, even after some further refinements found in more recent versions of Open PifPaf, they struggle with in-the-wild videos such as the example shown here and are even more limited at estimating 3D coordinates and tracking multiple people in the shot.
+The first convolutional neural network-based pose estimation tools, such as OpenPose circa 2018, were revolutionary, but even after some further refinements, they still really struggled with in-the-wild videos such as the example shown on the left and are even more limited at estimating 3D coordinates and tracking multiple people in a shot.
 
-As sometimes happens during the current era of AI research, a better model came along just in time, in the form a of a new generation of transformer-based models for computer vision, and more specifically via some great software tools for pose estimation and tracking from a research group at UC Berkeley.
+As sometimes happens during this current era of AI research, a better model came along just in time, with a new generation of transformer-based models for computer vision, and more specifically via some great software tools for pose estimation and tracking from a research group at UC Berkeley.
 
 
 ---
@@ -165,7 +165,7 @@ Jathushan Rajasegaran, Georgios Pavlakos, Angjoo Kanazawa, Jitendra Malik. “Tr
 https://github.com/broadwell/PHALP
 
 :::
-The most crucial of these tools is charmingly named PHALP -- you can see the acronym there -- and it achieves what is still state-of-the-art accuracy in pose estimation by interweaving the tasks of estimating human forms while also noting their appearance (that is, by extracting texture maps of their clothing and such) and tracking their trajectories over time in an estimated 3D space. This enables the transformer-based system to fill in occluded limbs and even entire poses that earlier models would "lose track of" for a few frames before finding them again.
+The most crucial of these tools is named PHALP -- you can see the acronym there -- and it achieves state-of-the-art accuracy in pose estimation by interweaving the tasks of estimating human forms while also noting their appearance (that is, by extracting texture maps of their clothing and such) and tracking their trajectories over time in an estimated 3D space. This enables the transformer-based system to fill in occluded limbs and even entire poses that earlier models would "lose track of" for multiple frames before finding them again.
 
 
 ---
@@ -179,7 +179,7 @@ Jathushan Rajasegaran, Georgios Pavlakos, Angjoo Kanazawa, Christoph Feichtenhof
 https://github.com/broadwell/LART
 
 :::
-We augmented the 3D pose data from PHALP with a customized action recognition tool built by the same team, named Lagrangian Action Recognition with Transformers. This software also produces a 60-element vector in the AVA "Atomic Visual Actions" embedding space to describe every detected action by every pose in every frame, which provide much more computationally meaningful descriptions of the actions than the simple labels from the taxonomy (things like "watch, stand, walk").
+We augmented the 3D pose data from PHALP with a customized action recognition tool built by the same team, named Lagrangian Action Recognition with Transformers. This software also produces a 60-element vector in the AVA "Atomic Visual Actions" embedding space to describe every detected action inferred for every pose in every frame. These vectors provide much more computationally meaningful descriptions of the actions than the simple labels from the taxonomy (things like "watch, stand, walk").
 
 
 ---
@@ -418,7 +418,7 @@ Using MIME's timeline, we can easily analyze a production in terms of repetetive
 <img class="r-stretch" src="assets/results/31_performances.png" />
 
 :::
-To address the question of what the pose, action, motion and position data we can extract from recordings via the MIME platform might tell us about how theater directors deploy these elements to produce specific effects in their own personal style, we focused on three high-profile, contemporary "auteur" directors: Bill T. Jones, Romeo Castellucci, and Krzysztof Warlikowski, selecting 10 or 11 performances each has directed during his career. We ran video recordings of these performances through the MIME pipeline without alteration, other than upscaling some of them to at least HD quality, because the models work better with high-resolution footage.
+To address the question of what the data we extract from recordings via the MIME platform can tell us about how theater directors produce specific effects in their own personal style, we focused on three high-profile, contemporary "auteur" directors: Bill T. Jones, Romeo Castellucci, and Krzysztof Warlikowski, selecting 10 or 11 performances each has directed. We ran video recordings of these performances through the MIME pipeline without alteration, other than upscaling some of them to at least HD quality, because the models work better with high-resolution footage.
 
 As you can see, this produced 10-20 hours of pose data per director.
 
@@ -439,7 +439,7 @@ View-invariant pose embeddings
 </div>
 
 :::
-We framed our approach as a performance-to-director classification problem, investigating which pose, action, motion and distance data elements are most effective at predicting the correct stage director for a given performance. The first steps was a basic "leave one out" test comparing the aggregated, averaged feature vectors across each director's entire collection to the average feature vector of one "held out" performance, using cosine similarity, in what's basically a very simple multidimensional kernel-based similarity comparison approach.
+We framed our approach as a performance-to-director classification problem, investigating which pose, action, motion and distance data elements are most effective at predicting the correct stage director for a given performance. The first steps was a basic "leave one out" test comparing the aggregated, averaged feature vectors across each director's entire collection to the average feature vector of one "held out" performance, using cosine similarity, in what's basically a very simple multidimensional kernel-based similarity comparison.
 
 This approach found that the basic pose and motion statistics were not as effective at differentiating works by Castellucci and Warlikowski. However, they were quite good at telling the difference between Bill T. Jones and the other two directors. Meanwhile, the aggregated pose embeddings were more successful at differentiating the works of all three directors.
 
@@ -530,9 +530,9 @@ Here you can see two different "thumbprints"--that demonstrate the the differenc
 <img class="r-stretch" src="assets/results/poem_umap_sampled_2.png" />
 
 :::
-To explore how the directors' pose "repertoires" might be distributed through the view-invariant pose embedding space, and hopefully get a better sense of what aspects of these embeddings were helping to differentiate the directors, we plotted a sample of all of their pose embeddings into a 2D space via UMAP projection as color-coded dots. The larger hexagons represent each director's overall average pose embedding. Although we can't directly translate these averages into poses, we can search for the most similar poses in the entire data set thanks to MIME's powerful vector database, and we've shown some of those here in the callouts.
+To explore how the directors' pose "repertoires" might be distributed through the view-invariant pose embedding space, and hopefully get a better sense of what aspects of these embeddings were helping to differentiate the directors, we plotted a sample of all of their pose embeddings into a 2D space via UMAP projection as color-coded dots. The larger hexagons represent each director's overall average pose embedding. Although we can't directly translate these average points into poses, we can search for the most similar poses to them from the entire data set thanks to MIME's powerful vector database, and we've shown some of those here in the callouts.
 
-This projection does seem to reveal useful insights, like the overall greater similarity between Castellucci’s and Warlikowski’s pose repertoires relative to Jones’s, and the callouts highlight how Jones tends to employ dramatically contorted poses, Castellucci to favor hunched-over standing postures, and Warlikowski to deploy figures in an active sitting position.
+This projection does seem to reveal useful observations, like the overall greater similarity between Castellucci’s and Warlikowski’s pose repertoires relative to Jones’s, and the callouts highlight how Jones tends to employ dramatically contorted poses, Castellucci to favor hunched-over standing postures, and Warlikowski to deploy figures in an active sitting position.
 
 
 ---
@@ -559,7 +559,7 @@ This projection does seem to reveal useful insights, like the overall greater si
 :::
 
 
-Our final analytical experiment to date, which is still a work in progress, sort of inverts the previous approach and instead considers what MIME can reveal when comparing staging from seven different directors who are all directing the same work -- in this case the famous Mozart/Da Ponte opera Don Giovanni from 1787.
+Our final analytical experiment to date, which is still a work in progress, sort of inverts the previous approach and instead considers what MIME can reveal when comparing staging from seven different directors who were all directing the same work -- in this case Mozart and Da Ponte's  Don Giovanni from 1787.
 
 The screenshots below show some pose estimation output from each of the directors' stagings -- note that in every case this is the same scene, from the finale of Act I.
 
@@ -599,9 +599,9 @@ The table above gives derived statistics of the performances, highlighting entri
 
 
 :::
-Comparing the performances of Don Giovanni involved aligning all of them down to the sub-second level, specifically so that we could calculate the average poses and actions deployed at each moment of the opera -- building what folklorists refer to as the "consensus performance" or "tradition dominant" of a cultural expressive form -- and then calculate the degree to which each director's staging deviates from this consensus at each moment.
+Comparing the performances of Don Giovanni involved aligning all of them down to the sub-second level, specifically so that we could calculate the average poses and actions deployed at each moment of the opera -- building what folklorists refer to as the "consensus performance" or "tradition dominant" of a cultural expressive form -- and then compute the degree to which each director's staging deviates from this consensus at each moment.
 
-Practically speaking, the easiest way to align the recordings, which only works because the work is an opera, involves extracting the musical pitches heard at each timecode and applying the dynamic time warping algorithm to match the pitch chroma of different performances to compute a warping path that allows us to align them despite significant differences in tempo, non-musical action, and the occasional omission of certain scenes.
+Practically speaking, the easiest way to align the recordings, which only works because the work is an opera, is to extract the musical pitches heard at each timecode and apply the dynamic time warping algorithm to match the pitch chroma of different performances to compute a warping path that allows us to align them despite significant differences in tempo, non-musical action (e.g., intermission), and the occasional omission of certain scenes.
 
 
 ---
@@ -620,7 +620,7 @@ Practically speaking, the easiest way to align the recordings, which only works 
 </div>
 
 :::
-As a final analytical output of the effort just described, we can plot the pose or motion similarity attributes of each of the 7 performances to the average  "consensus" performance across the entire work (the dashed lines are scene and act boundaries). This is still a work in progress, but we can use this analysis to detect patterns such as certain scenes in which stagings are more likely to deviate from the consensus poses, and eventually use this to highlight automatically where directors might use especially distinctive poses and actions. Stay tuned...
+As a final analytical output of the effort just described, we can plot the pose or motion similarities of each of the 7 performances to the average  "consensus" performance across the entire work (the dashed lines are scene and act boundaries). This is still a work in progress, but we can use this analysis to detect patterns such as certain scenes in which stagings are more likely to deviate from the consensus poses, and eventually use this to highlight automatically where directors might use especially distinctive poses and actions. Stay tuned...
 
 
 ---
