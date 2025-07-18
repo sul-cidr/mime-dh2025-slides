@@ -406,7 +406,7 @@ And finally this is one from our new interface showing yours truly performing a 
 
 ## Recurring Poses and Thematic Pose Analysis
 
-<video id="platform-demo-video" controls muted src="assets/Bausch4.mp4"></video>
+<video controls muted src="assets/Bausch4.mp4"></video>
 :::
 Using MIME's timeline, we can easily analyze a production in terms of repetetive gestures. A researcher can simply select a specific pose in the production, and the timeline will show where else the pose shows up in the performance. You can jump easily to those spots in the performance, or you use it chart certain thematic recurrances. The timeline view gives you a distant view of the performance, where you can see chart entrances and exits of performers, and as get a sense of some aspects rhythmic or thematic elements by noting what repeats within the performance and when.
 
