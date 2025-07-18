@@ -8,7 +8,8 @@
     />
 
     <title>
-      The Director’s Signature: Stylometry of Theater Choreography via Pose and Action Estimation
+      The Director’s Signature: Stylometry of Theater Choreography via Pose and
+      Action Estimation
     </title>
 
     <link rel="stylesheet" href="lib/reveal/reset.css" />
@@ -79,8 +80,24 @@
         },
       }).then(() => {
         const demoVideo = document.getElementById("platform-demo-video");
-        demoVideo.addEventListener("play", () => demoVideo.requestFullscreen());
+        if (demoVideo)
+          demoVideo.addEventListener("play", () =>
+            demoVideo.requestFullscreen(),
+          );
       });
+
+      Reveal.addEventListener(
+        "slidechanged",
+        (event) => {
+          const firstGif = event.currentSlide.querySelector("img[src*='.gif']");
+          if (firstGif)
+            firstGif.setAttribute(
+              "src",
+              firstGif.getAttribute("src") + "?t=" + new Date().getTime(),
+            );
+        },
+        false,
+      );
     </script>
   </body>
 </html>
