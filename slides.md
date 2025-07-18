@@ -650,6 +650,7 @@ This computational approach cannot definitively determine directorial intent. Ob
 While this research presents exciting quantitative analysis possibilities, its true value lies in complementing traditional scholarly approaches. By integrating computational methods with human interpretation, we develop a more comprehensive understanding of theatrical performance and directorial style, enriching both academic discourse and artistic practice.
 
 Thank you.
+
 ---
 
 
