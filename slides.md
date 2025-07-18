@@ -97,7 +97,6 @@ Pose is fundamental to theater. Pose and staging lie at the intersection of auth
 To answer this question, we turned to computer vision algorithms to precisely detect actor poses for every frame of an archival theatrical production. Our methodology runs pose detection on numerous videos, generating hundreds of thousands of poses, then sifts through that data to draw meaningful conclusions. Our work doesn't just focus on one meaningful pose or tableaux but instead seeks to understand the aggregate effect of all poses throughout a production, and across multiple productions by the same director or different interpretations by different directors. This brings us closer to identifying the director's contribution to pose in theater.
 
 
-
 ---
 
 
@@ -122,7 +121,7 @@ To answer this question, we turned to computer vision algorithms to precisely de
 <!-- .slide: data-transition="fade-in slide-out" -->
 
 :::
-By leveraging pose estimation and action recognition, we can quantify theatrical performance aspects previously left to subjective interpretation. We analyze not just individual poses, but movement patterns, spatial relationships between performers, and production rhythm and flow. We can use pose analysis to distinguish between different directors' work, regardless of actors, text, or designers, getting closer to understanding specific directorial contributions. 
+By leveraging pose estimation and action recognition, we can quantify theatrical performance aspects previously left to subjective interpretation. We analyze not just individual poses, but movement patterns, spatial relationships between performers, and production rhythm and flow. We can use pose analysis to distinguish between different directors' work, regardless of actors, text, or designers, getting closer to understanding specific directorial contributions.
 
 
 I'll hand it over to Peter to discuss our methodology.
@@ -408,7 +407,7 @@ Michael's now going to show us some of the ways he's been able to make use of th
 
 ## Recurring Poses and Thematic Pose Analysis
 
-<video controls muted src="assets/Bausch4.mp4"></video>
+<video data-autoplay controls muted src="assets/Bausch4.mp4"></video>
 :::
 Using MIME's timeline, we can easily analyze a production in terms of repetetive gestures. A researcher can simply select a specific pose in the production, and the timeline will show where else the pose shows up in the performance. You can jump easily to those spots in the performance, or you use it chart certain thematic recurrances. The timeline view gives you a distant view of the performance, where you can see chart entrances and exits of performers, and as get a sense of some aspects rhythmic or thematic elements by noting what repeats within the performance and when.
 
@@ -535,7 +534,7 @@ Romeo Castellucci's Democracy in America
 </div>
 
 :::
-Here you can see two different "thumbprints"--that demonstrate the the difference quantities of pose throughout the show. Bill T. Jones' production shows far more "Prostration" than Castellucci. And Castellucci's production features far more poses of supplication. And while it may seem a little silly to use these 19th century melodramatic poses to analize a works of contemporary theater, this method points towards ways in which this technology could be used to trace the genelogy of artistic movements, and the subtle ways that historical aesthetics shape our contemprary tastes. 
+Here you can see two different "thumbprints"--that demonstrate the the difference quantities of pose throughout the show. Bill T. Jones' production shows far more "Prostration" than Castellucci. And Castellucci's production features far more poses of supplication. And while it may seem a little silly to use these 19th century melodramatic poses to analize a works of contemporary theater, this method points towards ways in which this technology could be used to trace the genelogy of artistic movements, and the subtle ways that historical aesthetics shape our contemprary tastes.
 
 ---
 
@@ -673,6 +672,7 @@ Thank you.
 
 ---
 
+
 ## Feature Importances: Motion and Distance (Random Forest)
 
 <div class="img-row">
@@ -685,6 +685,7 @@ Thank you.
 
 ---
 
+
 ## Collinearity of Motion and Distance Features
 
 <p class="stretch"><img
@@ -692,6 +693,7 @@ Thank you.
 /></p>
 
 ---
+
 
 ## 3D Keypoint Importances (Random Forest)
 
@@ -710,6 +712,7 @@ Thank you.
 
 ---
 
+
 ## Feature Importances: View-Invariant Pose Embeddings
 
 <div class="img-row">
@@ -722,6 +725,7 @@ Thank you.
 
 ---
 
+
 ## Collinearity of View-Invariant Pose Vector Features
 
 <p class="stretch"><img
@@ -730,6 +734,7 @@ Thank you.
 
 ---
 
+
 ## Pose "Repertoires" Visualization (Labeled Performances)
 
 <p class="stretch"><img
@@ -737,6 +742,7 @@ Thank you.
 /></p>
 
 ---
+
 
 ## Action "Repertoires" Visualization
 
