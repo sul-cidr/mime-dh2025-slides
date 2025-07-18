@@ -209,16 +209,11 @@ Finally we adopted another embedding, this one from Google and CalTech, that pro
 
 :::
 
-So how do we operationalize these models and techniques?  How do we take the outputs of the inferences and predictions they generate and make them useful for exploring our research questions?
+So how do we operationalize these models and techniques?  How do we take the inferences and predictions they generate and make them useful for exploring our research questions?
 
-The MIME platform consists of a modular ingestion pipeline, a database with sophisticated vector storage and indexing capabilities, an application and API server, and a collection of related interfaces that allow us to investigate and analyze the data we have assembled using things like
-* similarity metrics
-* nearest neighbour search
-* clustering,
-* and a variety of different visualizations.
+The MIME platform consists of a modular ingestion pipeline, a database with sophisticated vector storage and indexing capabilities, an application and API server, and a collection of related interfaces that allow us to investigate, analyze, and visualize the data we have assembled.
 
-
-The loosely-coupled nature of these components allows us to experiment with different approaches while still providing a consistent framework for our development.
+The loosely-coupled nature of the platform allows us to iterate on steps somewhat independently and experiment with different approaches while still providing a consistent framework for our development.
 
 ---
 
@@ -257,8 +252,6 @@ In addition to the three core technologies that Peter already introduced our ing
 
 and once we have all this information we also need to perform a number of coordination tasks
 
-~since the hand estimation and pose estimation come from separate models we need to perform some additional analysis to join them up together.~
-
 ---
 
 <div>
@@ -287,7 +280,7 @@ and once we have all this information we also need to perform a number of coordi
 
 :::
 
-These inference and computational tasks are lengthy and expensive, so all this data is ingested ultimately into our database server for subsequent retrieval and analysis.  For our vector storage and querying capabilities we're using pgvector which offers a number of affordances for the performant Approximate Nearest Neighbour searches on which much of the functionality is built one way or another.
+These inference and computational tasks are lengthy and expensive, so all the data generated are stored in our database server for subsequent retrieval and analysis.  For our vector storage and querying capabilities we're using pgvector which offers a number of affordances for the performant ANN searches on which much of the functionality is built.
 
 
 The Application and API server is a container that has all our machine-learning dependencies available and its where all our machine learning and back-end code runs
@@ -327,10 +320,9 @@ The container is also home to a Jupyter Notebook server and a FastAPI server tha
 
 :::
 
-This is a diagram of the platform, more-or-less as it exists now
-* each of these parts can be easily swapped in and out as we're experimenting
+This diagram describes the platform architecture that delivers the flexibility we need
 
-* The whole thing is orchestrated with docker which a number of important benefits for a platform like this.
+The whole thing is orchestrated with docker which make maintaining it and working with it very convenient.
 
 ---
 
@@ -354,7 +346,7 @@ This is a timeline view for a single performance that lets us see how our data a
 <!-- .slide: data-transition="fade" -->
 
 :::
-This is our first iteration of a pose similariy search interface.
+This is our first iteration of a search interface that allows searching for similar poses or actions.
 
 ---
 
@@ -390,7 +382,15 @@ This is an interactive 2D UMAP projection of poses clustered with the HDBSCAN al
 
 ---
 
-<img src="assets/interface/webcam.gif">
+<img src="assets/interface/corpus_search.gif">
+<!-- .slide: data-transition="fade" -->
+
+:::
+Searching for a source pose from one recording across a corpus of recordings...
+
+---
+
+<img src="assets/interface/webcam_search.gif">
 <!-- .slide: data-transition="fade-in slide-out" -->
 
 :::
